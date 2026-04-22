@@ -46,7 +46,7 @@ export default function HeroSection() {
               color: "#8a7d6e",
             }}
           >
-            🤝 Партнёр Roblox
+            🎮 Партнёр Роблик
           </span>
         </div>
 
@@ -74,8 +74,8 @@ export default function HeroSection() {
             color: "#8a7d6e",
           }}
         >
-          YA VPN на базе протокола V2Ray — обходит любые блокировки там, где другие сервисы
-          отказывают. Код подключения даёт Ярослав лично.
+          YA VPN на базе протокола V2Ray — официальный партнёр Роблик. Ускоряет Roblox,
+          обходит блокировки и работает там, где другие сервисы отказывают. Бесплатно.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-300">
