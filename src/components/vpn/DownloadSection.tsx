@@ -233,26 +233,7 @@ export default function DownloadSection() {
                     Ваша заявка на рассмотрении...
                   </p>
 
-                  {/* Timer bar */}
-                  <div
-                    className="mt-8 h-px w-full overflow-hidden"
-                    style={{ background: "rgba(201,168,76,0.1)" }}
-                  >
-                    <div
-                      className="h-full"
-                      style={{
-                        background: "linear-gradient(90deg, #c9a84c, #e8c97a)",
-                        width: `${(elapsed / DURATION) * 100}%`,
-                        transition: "width 0.9s linear",
-                      }}
-                    />
-                  </div>
-                  <p
-                    className="mt-3 text-xs"
-                    style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#3a3025" }}
-                  >
-                    {DURATION - elapsed} сек
-                  </p>
+
                 </div>
               </div>
             )}
