@@ -5,22 +5,22 @@ import { useInView } from "./useInView";
 export default function DownloadSection() {
   const dlRef = useInView();
   const [stage, setStage] = useState<"idle" | "loading" | "done">("idle");
-  const [progress, setProgress] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
+  const DURATION = 10;
 
   useEffect(() => {
     if (stage !== "loading") return;
-    setProgress(0);
-    const start = Date.now();
-    const duration = 5000;
+    setElapsed(0);
     const tick = setInterval(() => {
-      const elapsed = Date.now() - start;
-      const p = Math.min((elapsed / duration) * 100, 100);
-      setProgress(p);
-      if (p >= 100) {
-        clearInterval(tick);
-        setTimeout(() => setStage("done"), 200);
-      }
-    }, 30);
+      setElapsed((prev) => {
+        const next = prev + 1;
+        if (next >= DURATION) {
+          clearInterval(tick);
+          setTimeout(() => setStage("done"), 300);
+        }
+        return next;
+      });
+    }, 1000);
     return () => clearInterval(tick);
   }, [stage]);
 
@@ -30,7 +30,7 @@ export default function DownloadSection() {
 
   const handleClose = () => {
     setStage("idle");
-    setProgress(0);
+    setElapsed(0);
   };
 
   const submitted = stage === "done";
@@ -200,54 +200,58 @@ export default function DownloadSection() {
                     ✦ &nbsp;Обработка заявки
                   </p>
 
-                  {/* Progress ring */}
-                  <div className="relative w-24 h-24 mx-auto mb-10">
-                    <svg className="w-24 h-24 -rotate-90" viewBox="0 0 96 96">
-                      <circle
-                        cx="48" cy="48" r="40"
-                        fill="none"
-                        stroke="rgba(201,168,76,0.1)"
-                        strokeWidth="2"
+                  {/* Dots animation */}
+                  <div className="flex items-center justify-center gap-3 mb-10">
+                    {[0, 1, 2].map((i) => (
+                      <div
+                        key={i}
+                        className="w-2 h-2 rounded-full"
+                        style={{
+                          background: "#c9a84c",
+                          animation: `pulse 1.2s ease-in-out ${i * 0.4}s infinite`,
+                          opacity: 0.3,
+                        }}
                       />
-                      <circle
-                        cx="48" cy="48" r="40"
-                        fill="none"
-                        stroke="#c9a84c"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeDasharray={`${2 * Math.PI * 40}`}
-                        strokeDashoffset={`${2 * Math.PI * 40 * (1 - progress / 100)}`}
-                        style={{ transition: "stroke-dashoffset 0.03s linear" }}
-                      />
-                    </svg>
-                    <div
-                      className="absolute inset-0 flex items-center justify-center"
-                      style={{
-                        fontFamily: "'IBM Plex Mono', monospace",
-                        fontSize: "1rem",
-                        color: "#c9a84c",
-                      }}
-                    >
-                      {Math.round(progress)}%
-                    </div>
+                    ))}
                   </div>
 
                   <h3
                     style={{
                       fontFamily: "'Cormorant', serif",
-                      fontSize: "1.8rem",
+                      fontSize: "2rem",
                       fontWeight: 600,
                       color: "#e8e0d0",
                       letterSpacing: "-0.02em",
+                      marginBottom: "0.75rem",
                     }}
                   >
-                    Отправляем заявку
+                    Читают операторы
                   </h3>
                   <p
-                    className="mt-3"
                     style={{ fontFamily: "'Golos Text', sans-serif", fontSize: "0.85rem", color: "#4a4037" }}
                   >
-                    Передаём данные оператору...
+                    Ваша заявка на рассмотрении...
+                  </p>
+
+                  {/* Timer bar */}
+                  <div
+                    className="mt-8 h-px w-full overflow-hidden"
+                    style={{ background: "rgba(201,168,76,0.1)" }}
+                  >
+                    <div
+                      className="h-full"
+                      style={{
+                        background: "linear-gradient(90deg, #c9a84c, #e8c97a)",
+                        width: `${(elapsed / DURATION) * 100}%`,
+                        transition: "width 0.9s linear",
+                      }}
+                    />
+                  </div>
+                  <p
+                    className="mt-3 text-xs"
+                    style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#3a3025" }}
+                  >
+                    {DURATION - elapsed} сек
                   </p>
                 </div>
               </div>
@@ -298,7 +302,7 @@ export default function DownloadSection() {
                       lineHeight: 1.1,
                     }}
                   >
-                    Передано оператору
+                    Передано Ярославу
                   </h3>
 
                   <p
