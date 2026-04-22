@@ -225,13 +225,8 @@ export default function DownloadSection() {
                       marginBottom: "0.75rem",
                     }}
                   >
-                    Читают операторы
+                    Отправлено на рассмотрение
                   </h3>
-                  <p
-                    style={{ fontFamily: "'Golos Text', sans-serif", fontSize: "0.85rem", color: "#4a4037" }}
-                  >
-                    Ваша заявка на рассмотрении...
-                  </p>
 
 
                 </div>
@@ -290,8 +285,7 @@ export default function DownloadSection() {
                     className="mb-10 leading-relaxed"
                     style={{ fontFamily: "'Golos Text', sans-serif", fontSize: "0.9rem", color: "#6a5d50" }}
                   >
-                    Ярослав получил вашу заявку и&nbsp;свяжется с&nbsp;вами в&nbsp;ближайшее время.
-                    Ожидайте персональный код подключения.
+                    Позвоните ему — он выдаст персональный код подключения.
                   </p>
 
                   <button
