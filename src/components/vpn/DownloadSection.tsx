@@ -1,10 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import { useInView } from "./useInView";
 
 export default function DownloadSection() {
   const dlRef = useInView();
-  const [submitted, setSubmitted] = useState(false);
+  const [stage, setStage] = useState<"idle" | "loading" | "done">("idle");
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (stage !== "loading") return;
+    setProgress(0);
+    const start = Date.now();
+    const duration = 5000;
+    const tick = setInterval(() => {
+      const elapsed = Date.now() - start;
+      const p = Math.min((elapsed / duration) * 100, 100);
+      setProgress(p);
+      if (p >= 100) {
+        clearInterval(tick);
+        setTimeout(() => setStage("done"), 200);
+      }
+    }, 30);
+    return () => clearInterval(tick);
+  }, [stage]);
+
+  const handleApply = () => {
+    setStage("loading");
+  };
+
+  const handleClose = () => {
+    setStage("idle");
+    setProgress(0);
+  };
+
+  const submitted = stage === "done";
 
   return (
     <>
@@ -123,7 +152,7 @@ export default function DownloadSection() {
               </a>
 
               <button
-                onClick={() => setSubmitted(true)}
+                onClick={handleApply}
                 className="inline-flex items-center gap-3 px-10 py-4 text-sm uppercase tracking-widest font-semibold transition-all duration-300"
                 style={{
                   fontFamily: "'Golos Text', sans-serif",
@@ -147,12 +176,89 @@ export default function DownloadSection() {
               Персональный код — у Ярослава
             </p>
 
+            {/* Loading overlay */}
+            {stage === "loading" && (
+              <div
+                className="fixed inset-0 z-[100] flex items-center justify-center px-6"
+                style={{ background: "rgba(8,7,5,0.95)", backdropFilter: "blur(20px)" }}
+              >
+                <div
+                  className="relative max-w-sm w-full p-12 text-center"
+                  style={{ border: "1px solid rgba(201,168,76,0.2)", background: "#0f0d0a" }}
+                >
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.05) 0%, transparent 70%)",
+                    }}
+                  />
+
+                  <p
+                    className="text-xs tracking-[0.4em] uppercase mb-10 relative z-10"
+                    style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#4a4037" }}
+                  >
+                    ✦ &nbsp;Обработка заявки
+                  </p>
+
+                  {/* Progress ring */}
+                  <div className="relative w-24 h-24 mx-auto mb-10">
+                    <svg className="w-24 h-24 -rotate-90" viewBox="0 0 96 96">
+                      <circle
+                        cx="48" cy="48" r="40"
+                        fill="none"
+                        stroke="rgba(201,168,76,0.1)"
+                        strokeWidth="2"
+                      />
+                      <circle
+                        cx="48" cy="48" r="40"
+                        fill="none"
+                        stroke="#c9a84c"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeDasharray={`${2 * Math.PI * 40}`}
+                        strokeDashoffset={`${2 * Math.PI * 40 * (1 - progress / 100)}`}
+                        style={{ transition: "stroke-dashoffset 0.03s linear" }}
+                      />
+                    </svg>
+                    <div
+                      className="absolute inset-0 flex items-center justify-center"
+                      style={{
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        fontSize: "1rem",
+                        color: "#c9a84c",
+                      }}
+                    >
+                      {Math.round(progress)}%
+                    </div>
+                  </div>
+
+                  <h3
+                    style={{
+                      fontFamily: "'Cormorant', serif",
+                      fontSize: "1.8rem",
+                      fontWeight: 600,
+                      color: "#e8e0d0",
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    Отправляем заявку
+                  </h3>
+                  <p
+                    className="mt-3"
+                    style={{ fontFamily: "'Golos Text', sans-serif", fontSize: "0.85rem", color: "#4a4037" }}
+                  >
+                    Передаём данные оператору...
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Confirmation overlay */}
             {submitted && (
               <div
                 className="fixed inset-0 z-[100] flex items-center justify-center px-6"
                 style={{ background: "rgba(8,7,5,0.92)", backdropFilter: "blur(20px)" }}
-                onClick={() => setSubmitted(false)}
+                onClick={handleClose}
               >
                 <div
                   className="relative max-w-md w-full p-12 text-center"
@@ -204,7 +310,7 @@ export default function DownloadSection() {
                   </p>
 
                   <button
-                    onClick={() => setSubmitted(false)}
+                    onClick={handleClose}
                     className="text-xs uppercase tracking-widest px-8 py-3 transition-all duration-200"
                     style={{
                       fontFamily: "'IBM Plex Mono', monospace",
