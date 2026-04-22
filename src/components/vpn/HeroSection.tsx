@@ -19,12 +19,34 @@ export default function HeroSection() {
       />
 
       <div className="max-w-6xl mx-auto w-full relative z-10">
-        <div className="animate-fade-in-up">
+        <div className="animate-fade-in-up flex flex-wrap items-center gap-3 mb-8">
           <span
-            className="inline-block text-xs tracking-[0.4em] uppercase mb-8"
+            className="inline-block text-xs tracking-[0.4em] uppercase"
             style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#c9a84c" }}
           >
             ✦ &nbsp;Премиальный VPN &nbsp;✦
+          </span>
+          <span
+            className="inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-widest"
+            style={{
+              fontFamily: "'IBM Plex Mono', monospace",
+              background: "rgba(34,197,94,0.1)",
+              border: "1px solid rgba(34,197,94,0.3)",
+              color: "#4ade80",
+            }}
+          >
+            🆓 Бесплатно
+          </span>
+          <span
+            className="inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-widest"
+            style={{
+              fontFamily: "'IBM Plex Mono', monospace",
+              background: "rgba(201,168,76,0.07)",
+              border: "1px solid rgba(201,168,76,0.2)",
+              color: "#8a7d6e",
+            }}
+          >
+            🤝 Партнёр Roblox
           </span>
         </div>
 
@@ -94,7 +116,7 @@ export default function HeroSection() {
         >
           {[
             { num: "256-bit", label: "Шифрование" },
-            { num: "0", label: "Журналов" },
+            { num: "0₽", label: "Стоимость" },
             { num: "∞", label: "Устройств" },
           ].map((s) => (
             <div key={s.label}>
