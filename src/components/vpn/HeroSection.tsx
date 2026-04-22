@@ -37,17 +37,7 @@ export default function HeroSection() {
           >
             🆓 Бесплатно
           </span>
-          <span
-            className="inline-flex items-center gap-1.5 px-3 py-1 text-xs uppercase tracking-widest"
-            style={{
-              fontFamily: "'IBM Plex Mono', monospace",
-              background: "rgba(201,168,76,0.07)",
-              border: "1px solid rgba(201,168,76,0.2)",
-              color: "#8a7d6e",
-            }}
-          >
-            🎮 Партнёр Роблик
-          </span>
+
         </div>
 
         <h1
@@ -74,8 +64,8 @@ export default function HeroSection() {
             color: "#8a7d6e",
           }}
         >
-          YA VPN на базе протокола V2Ray — партнёр Роблик. Ускоряет Roblox,
-          обходит блокировки и работает там, где другие сервисы отказывают. Бесплатно.
+          YA VPN на базе протокола V2Ray — обходит любые блокировки там, где другие сервисы
+          отказывают. Код подключения даёт Ярослав лично. Бесплатно.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-300">

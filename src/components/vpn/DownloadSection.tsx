@@ -329,60 +329,6 @@ export default function DownloadSection() {
         </div>
       </section>
 
-      {/* ROBLИК PARTNERSHIP */}
-      <section
-        className="py-20 px-8"
-        style={{ borderTop: "1px solid rgba(201,168,76,0.1)", background: "#0d0b09" }}
-      >
-        <div className="max-w-6xl mx-auto">
-          <div
-            className="flex flex-col md:flex-row items-center gap-10 p-10"
-            style={{ border: "1px solid rgba(201,168,76,0.15)", background: "rgba(201,168,76,0.02)" }}
-          >
-            <div
-              className="flex-shrink-0 w-20 h-20 flex items-center justify-center text-4xl"
-              style={{ border: "1px solid rgba(201,168,76,0.2)" }}
-            >
-              🎮
-            </div>
-            <div className="flex-1">
-              <p
-                className="text-xs tracking-[0.35em] uppercase mb-3"
-                style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#c9a84c" }}
-              >
-                ✦ &nbsp;Партнёрство
-              </p>
-              <h3
-                className="mb-3"
-                style={{
-                  fontFamily: "'Cormorant', serif",
-                  fontSize: "1.8rem",
-                  fontWeight: 600,
-                  color: "#e8e0d0",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Роблик — ускоритель Roblox
-              </h3>
-              <p
-                style={{ fontFamily: "'Golos Text', sans-serif", fontSize: "0.9rem", color: "#6a5d50", lineHeight: 1.7 }}
-              >
-                YA VPN является партнёром сервиса <strong style={{ color: "#8a7d6e" }}>Роблик</strong> — 
-                специализированного ускорителя для Roblox. Снижает пинг, обходит блокировки 
-                и обеспечивает стабильное соединение с серверами игры в России и СНГ.
-              </p>
-            </div>
-            <div className="flex-shrink-0 flex flex-col gap-3 text-center">
-              <div style={{ fontFamily: "'Cormorant', serif", fontSize: "2rem", fontWeight: 600, color: "#c9a84c" }}>
-                -40%
-              </div>
-              <div className="text-xs uppercase tracking-widest" style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#4a4037" }}>
-                снижение пинга
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* FOOTER */}
       <footer
