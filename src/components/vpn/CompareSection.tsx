@@ -1,11 +1,28 @@
 import { useInView } from "./useInView";
 import { COMPARE } from "./data";
+import Icon from "@/components/ui/icon";
 
 function Check({ ok }: { ok: boolean }) {
   return ok ? (
-    <span style={{ color: "#c9a84c" }} className="text-lg font-bold">✦</span>
+    <div
+      className="inline-flex items-center justify-center w-7 h-7"
+      style={{
+        background: "rgba(201,168,76,0.1)",
+        border: "1px solid rgba(201,168,76,0.3)",
+      }}
+    >
+      <Icon name="Check" size={12} style={{ color: "#c9a84c" }} />
+    </div>
   ) : (
-    <span className="text-[#3a3530] text-lg">—</span>
+    <div
+      className="inline-flex items-center justify-center w-7 h-7"
+      style={{
+        background: "rgba(255,255,255,0.02)",
+        border: "1px solid rgba(255,255,255,0.05)",
+      }}
+    >
+      <span style={{ color: "#2a2520", fontSize: "0.8rem" }}>—</span>
+    </div>
   );
 }
 
@@ -15,90 +32,159 @@ export default function CompareSection() {
   return (
     <section
       id="compare"
-      className="py-32 px-8"
-      style={{ borderTop: "1px solid rgba(201,168,76,0.1)", background: "#0d0b09" }}
+      className="py-36 relative overflow-hidden"
+      style={{
+        background: "var(--obsidian)",
+        borderTop: "1px solid rgba(201,168,76,0.08)",
+      }}
     >
-      <div ref={compRef.ref} className="max-w-6xl mx-auto">
-        <div className="mb-20">
-          <span
-            className="inline-block text-xs tracking-[0.4em] uppercase mb-4"
-            style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#c9a84c" }}
-          >
-            ✦ &nbsp;Сравнение
-          </span>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(circle at 20% 60%, rgba(201,168,76,0.04) 0%, transparent 50%)`,
+        }}
+      />
+
+      <div ref={compRef.ref} className="max-w-7xl mx-auto px-8 lg:px-16 relative z-10">
+
+        {/* Header */}
+        <div className="mb-24">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-6 h-px" style={{ background: "#c9a84c" }} />
+            <span
+              style={{
+                fontFamily: "'IBM Plex Mono', monospace",
+                color: "#c9a84c",
+                letterSpacing: "0.45em",
+                fontSize: "0.6rem",
+              }}
+            >
+              СРАВНЕНИЕ
+            </span>
+          </div>
           <h2
             style={{
               fontFamily: "'Cormorant', serif",
-              fontSize: "clamp(2.5rem, 5vw, 4rem)",
-              fontWeight: 600,
-              color: "#e8e0d0",
-              letterSpacing: "-0.02em",
+              fontSize: "clamp(2.8rem, 6vw, 5rem)",
+              fontWeight: 300,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.03em",
+              lineHeight: 1,
             }}
           >
-            YA VPN vs конкуренты
+            YA VPN<br />
+            <em style={{ fontStyle: "italic", color: "var(--text-muted)", fontWeight: 300, fontSize: "0.75em" }}>
+              vs конкуренты
+            </em>
           </h2>
         </div>
 
+        {/* Table */}
         <div
           className="overflow-hidden transition-all duration-700"
           style={{
-            border: "1px solid rgba(201,168,76,0.2)",
+            border: "1px solid rgba(201,168,76,0.12)",
             opacity: compRef.visible ? 1 : 0,
             transform: compRef.visible ? "translateY(0)" : "translateY(32px)",
+            background: "var(--surface)",
           }}
         >
-          {/* Table header */}
+          {/* Header row */}
           <div
-            className="grid grid-cols-4 text-xs uppercase tracking-widest"
+            className="grid grid-cols-4"
             style={{
-              background: "linear-gradient(135deg, #1a1510, #120f0b)",
-              borderBottom: "1px solid rgba(201,168,76,0.2)",
+              background: "linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.02) 100%)",
+              borderBottom: "1px solid rgba(201,168,76,0.12)",
             }}
           >
-            <div className="px-8 py-5" style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#4a4037" }}>
+            <div
+              className="px-10 py-6"
+              style={{ fontFamily: "'IBM Plex Mono', monospace", color: "var(--text-faint)", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase" }}
+            >
               Функция
             </div>
-            <div
-              className="px-4 py-5 text-center"
-              style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#c9a84c" }}
-            >
-              YA VPN
-            </div>
-            <div
-              className="px-4 py-5 text-center"
-              style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#4a4037" }}
-            >
-              OpenVPN
-            </div>
-            <div
-              className="px-4 py-5 text-center"
-              style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#4a4037" }}
-            >
-              WireGuard
-            </div>
+            {[
+              { label: "YA VPN", highlight: true },
+              { label: "OpenVPN", highlight: false },
+              { label: "WireGuard", highlight: false },
+            ].map((col) => (
+              <div
+                key={col.label}
+                className="px-4 py-6 text-center"
+                style={{
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  color: col.highlight ? "#c9a84c" : "var(--text-faint)",
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                  borderLeft: col.highlight ? "1px solid rgba(201,168,76,0.15)" : "1px solid rgba(201,168,76,0.05)",
+                }}
+              >
+                {col.highlight && (
+                  <div
+                    className="inline-flex items-center gap-1.5 px-3 py-1 mb-1"
+                    style={{
+                      background: "rgba(201,168,76,0.1)",
+                      border: "1px solid rgba(201,168,76,0.25)",
+                    }}
+                  >
+                    <span className="w-1 h-1 rounded-full bg-yellow-500 animate-pulse" />
+                    {col.label}
+                  </div>
+                )}
+                {!col.highlight && col.label}
+              </div>
+            ))}
           </div>
 
           {COMPARE.map((row, i) => (
             <div
               key={row.feature}
-              className="grid grid-cols-4"
+              className="grid grid-cols-4 group transition-colors duration-200"
               style={{
-                borderBottom: i < COMPARE.length - 1 ? "1px solid rgba(201,168,76,0.07)" : "none",
-                background: i % 2 === 0 ? "rgba(201,168,76,0.02)" : "transparent",
+                borderBottom: i < COMPARE.length - 1 ? "1px solid rgba(201,168,76,0.06)" : "none",
+                background: "transparent",
               }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.025)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
             >
               <div
-                className="px-8 py-4 text-sm"
-                style={{ fontFamily: "'Golos Text', sans-serif", color: "#8a7d6e" }}
+                className="px-10 py-5 text-sm"
+                style={{
+                  fontFamily: "'Golos Text', sans-serif",
+                  color: "var(--text-muted)",
+                  lineHeight: 1.5,
+                }}
               >
                 {row.feature}
               </div>
-              <div className="px-4 py-4 text-center"><Check ok={row.ya} /></div>
-              <div className="px-4 py-4 text-center"><Check ok={row.openvpn} /></div>
-              <div className="px-4 py-4 text-center"><Check ok={row.wireguard} /></div>
+              {[row.ya, row.openvpn, row.wireguard].map((val, j) => (
+                <div
+                  key={j}
+                  className="py-5 flex items-center justify-center"
+                  style={{
+                    borderLeft: j === 0 ? "1px solid rgba(201,168,76,0.1)" : "1px solid rgba(201,168,76,0.04)",
+                    background: j === 0 ? "rgba(201,168,76,0.015)" : "transparent",
+                  }}
+                >
+                  <Check ok={val} />
+                </div>
+              ))}
             </div>
           ))}
         </div>
+
+        {/* Note */}
+        <p
+          className="mt-8 text-xs"
+          style={{
+            fontFamily: "'IBM Plex Mono', monospace",
+            color: "var(--text-faint)",
+            letterSpacing: "0.1em",
+          }}
+        >
+          * Основано на реальных условиях работы в России и СНГ, 2024
+        </p>
       </div>
     </section>
   );
