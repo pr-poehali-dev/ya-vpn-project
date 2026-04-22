@@ -1,8 +1,10 @@
+import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { useInView } from "./useInView";
 
 export default function DownloadSection() {
   const dlRef = useInView();
+  const [submitted, setSubmitted] = useState(false);
 
   return (
     <>
@@ -103,21 +105,40 @@ export default function DownloadSection() {
               ))}
             </div>
 
-            <a
-              href="https://play.google.com/store/search?q=v2rayng&c=apps"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-10 py-4 text-sm uppercase tracking-widest font-semibold transition-all duration-300 hover:opacity-90"
-              style={{
-                fontFamily: "'Golos Text', sans-serif",
-                background: "linear-gradient(135deg, #c9a84c, #e8c97a, #c9a84c)",
-                color: "#0d0b09",
-                letterSpacing: "0.12em",
-              }}
-            >
-              <Icon name="Download" size={18} />
-              Скачать v2rayNG в Google Play
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <a
+                href="https://play.google.com/store/search?q=v2rayng&c=apps"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-10 py-4 text-sm uppercase tracking-widest font-semibold transition-all duration-300 hover:opacity-90"
+                style={{
+                  fontFamily: "'Golos Text', sans-serif",
+                  background: "linear-gradient(135deg, #c9a84c, #e8c97a, #c9a84c)",
+                  color: "#0d0b09",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                <Icon name="Download" size={18} />
+                Скачать v2rayNG в Google Play
+              </a>
+
+              <button
+                onClick={() => setSubmitted(true)}
+                className="inline-flex items-center gap-3 px-10 py-4 text-sm uppercase tracking-widest font-semibold transition-all duration-300"
+                style={{
+                  fontFamily: "'Golos Text', sans-serif",
+                  border: "1px solid rgba(201,168,76,0.4)",
+                  color: "#c9a84c",
+                  letterSpacing: "0.12em",
+                  background: "transparent",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#c9a84c")}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(201,168,76,0.4)")}
+              >
+                <Icon name="Send" size={18} />
+                Подать заявку
+              </button>
+            </div>
 
             <p
               className="mt-8 text-xs tracking-widest uppercase"
@@ -125,6 +146,79 @@ export default function DownloadSection() {
             >
               Персональный код — у Ярослава
             </p>
+
+            {/* Confirmation overlay */}
+            {submitted && (
+              <div
+                className="fixed inset-0 z-[100] flex items-center justify-center px-6"
+                style={{ background: "rgba(8,7,5,0.92)", backdropFilter: "blur(20px)" }}
+                onClick={() => setSubmitted(false)}
+              >
+                <div
+                  className="relative max-w-md w-full p-12 text-center"
+                  style={{ border: "1px solid rgba(201,168,76,0.25)", background: "#0f0d0a" }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Gold glow */}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%)",
+                    }}
+                  />
+
+                  <div
+                    className="w-16 h-16 mx-auto mb-8 flex items-center justify-center"
+                    style={{ border: "1px solid rgba(201,168,76,0.3)" }}
+                  >
+                    <Icon name="CheckCheck" size={28} style={{ color: "#c9a84c" }} />
+                  </div>
+
+                  <p
+                    className="text-xs tracking-[0.4em] uppercase mb-4"
+                    style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#c9a84c" }}
+                  >
+                    ✦ &nbsp;Заявка принята
+                  </p>
+
+                  <h3
+                    className="mb-4"
+                    style={{
+                      fontFamily: "'Cormorant', serif",
+                      fontSize: "2.5rem",
+                      fontWeight: 600,
+                      color: "#e8e0d0",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    Передано оператору
+                  </h3>
+
+                  <p
+                    className="mb-10 leading-relaxed"
+                    style={{ fontFamily: "'Golos Text', sans-serif", fontSize: "0.9rem", color: "#6a5d50" }}
+                  >
+                    Ярослав получил вашу заявку и&nbsp;свяжется с&nbsp;вами в&nbsp;ближайшее время.
+                    Ожидайте персональный код подключения.
+                  </p>
+
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="text-xs uppercase tracking-widest px-8 py-3 transition-all duration-200"
+                    style={{
+                      fontFamily: "'IBM Plex Mono', monospace",
+                      border: "1px solid rgba(201,168,76,0.2)",
+                      color: "#4a4037",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(201,168,76,0.5)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(201,168,76,0.2)")}
+                  >
+                    Закрыть
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
