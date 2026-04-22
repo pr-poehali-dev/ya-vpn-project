@@ -350,7 +350,7 @@ export default function DownloadSection() {
                 className="text-xs tracking-[0.35em] uppercase mb-3"
                 style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#c9a84c" }}
               >
-                ✦ &nbsp;Официальное партнёрство
+                ✦ &nbsp;Партнёрство
               </p>
               <h3
                 className="mb-3"
@@ -367,7 +367,7 @@ export default function DownloadSection() {
               <p
                 style={{ fontFamily: "'Golos Text', sans-serif", fontSize: "0.9rem", color: "#6a5d50", lineHeight: 1.7 }}
               >
-                YA VPN является официальным партнёром сервиса <strong style={{ color: "#8a7d6e" }}>Роблик</strong> — 
+                YA VPN является партнёром сервиса <strong style={{ color: "#8a7d6e" }}>Роблик</strong> — 
                 специализированного ускорителя для Roblox. Снижает пинг, обходит блокировки 
                 и обеспечивает стабильное соединение с серверами игры в России и СНГ.
               </p>
